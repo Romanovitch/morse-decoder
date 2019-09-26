@@ -39,6 +39,26 @@ const MORSE_TABLE = {
 
 function decode(expr) {
     // write your solution here
+    return expr
+    .split(/[*]{10}/)
+    .map(item => item.match(/[\d]{10}/g)
+      .map(item => item
+        .match(/[\d]{2}/g)
+        .filter(item => item !=='00')
+        .map(item => item === '10' ? '.' : '-')
+        .reduce(function(sum, item){
+          return sum + item;
+        }, '')
+      )
+      .map(i => i = MORSE_TABLE[i])
+      .reduce(function(sum, item){
+        return sum + item;
+      }, '')
+    )
+    .reduce(function(sum, item){
+        return sum + ' ' + item;
+      }, '')
+    .trimLeft()
 }
 
 module.exports = {
